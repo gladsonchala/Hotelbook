@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel API - Hotels</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Hotels</h1>
+  </header>
+
+  <div class="main-content">
+    <h2>List of Hotels</h2>
+    <div id="hotelsList"></div>
+  </div>
+
+  <script src="/js/script.js"></script>
+  <script>
+    // Fetch hotels data from the API
+    fetch('/hotels')
+      .then(response => response.json())
+      .then(data => {
+        // Process the hotels data and display it on the page
+        const hotelsListElement = document.getElementById('hotelsList');
+        data.forEach(hotel => {
+          const hotelElement = document.createElement('div');
+          hotelElement.innerHTML = `
+            <h3>${hotel.name}</h3>
+            <p>City: ${hotel.city}</p>
+            <p>Price Range: ${hotel.price_range.min} - ${hotel.price_range.max}</p>
+            <!-- Add more hotel details as needed -->
+          `;
+          hotelsListElement.appendChild(hotelElement);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching hotels:', error);
+      });
+  </script>
+</body>
+
+</html>
