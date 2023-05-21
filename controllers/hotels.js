@@ -1,4 +1,4 @@
-const Hotel = require('../models/hotel');
+const Hotel = require('../models/hotel.js');
 
 // GET /hotels - Returns a list of all hotels
 const getAllHotels = async (req, res, next) => {
