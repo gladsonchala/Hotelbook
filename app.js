@@ -5,6 +5,7 @@ const hotelsRouter = require('./routes/hotels');
 const csasRouter = require('./routes/csas');
 const authRouter = require('./routes/auth');
 const adminRouter = require('./routes/admin');
+const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
@@ -24,5 +25,5 @@ app.use((err, req, res, next) => {
 // Start the server
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
