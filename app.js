@@ -5,7 +5,7 @@ const hotelsRouter = require('./routes/hotels');
 const csasRouter = require('./routes/csas');
 const authRouter = require('./routes/auth');
 const adminRouter = require('./routes/admin');
-const port = process.env.PORT || 3000;
+
 
 // Middleware
 app.use(bodyParser.json());
