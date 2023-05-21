@@ -1,7 +1,7 @@
 {
-  "name": "your-project-name",
+  "name": "HotelbookAPI",
   "version": "1.0.0",
-  "description": "Your project description",
+  "description": "Hotel boooking API with Admin panel",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
