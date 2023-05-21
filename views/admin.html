@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel API - Admin Panel</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Admin Panel</h1>
+  </header>
+
+  <div class="main-content">
+    <h2>Generate API Key</h2>
+    <form id="generateApiKeyForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <button type="submit">Generate API Key</button>
+    </form>
+  </div>
+
+  <div class="main-content">
+    <h2>Revoke API Key</h2>
+    <form id="revokeApiKeyForm">
+      <label for="apiKey">API Key:</label>
+      <input type="text" id="apiKey" name="apiKey" required>
+      <button type="submit">Revoke API Key</button>
+    </form>
+  </div>
+
+  <script src="/js/script.js"></script>
+  <script>
+    // Handle form submission for generating API key
+    const generateApiKeyForm = document.getElementById('generateApiKeyForm');
+    generateApiKeyForm.addEventListener('submit', event => {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      // Send a POST request to the API to generate an API key
+      fetch('/admin/generate-api-key', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, email })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Display the generated API key to the user
+        alert(`API Key: ${data.apiKey}`);
+        // Reset the form
+        generateApiKeyForm.reset();
+      })
+      .catch(error => {
+        console.error('Error generating API key:', error);
+      });
+    });
+
+    // Handle form submission for revoking API key
+    const revokeApiKeyForm = document.getElementById('revokeApiKeyForm');
+    revokeApiKeyForm.addEventListener('submit', event => {
+      event.preventDefault();
+      const apiKey = document.getElementById('apiKey').value;
+      // Send a DELETE request to the API to revoke an API key
+      fetch(`/admin/revoke-api-key/${apiKey}`, {
+        method: 'DELETE'
+      })
+      .then(response => {
+        if (response.ok) {
+          alert('API Key revoked successfully');
+        } else {
+          alert('Failed to revoke API Key');
+        }
+        // Reset the form
+        revokeApiKeyForm.reset();
+      })
+      .catch(error => {
+        console.error('Error revoking API key:', error);
+      });
+    });
+  </script>
+</body>
+
+</html>
