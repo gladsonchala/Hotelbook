@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel API - Customer Service Agents</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Customer Service Agents</h1>
+  </header>
+
+  <div class="main-content">
+    <h2>List of CSAs</h2>
+    <div id="csasList"></div>
+  </div>
+
+  <script src="/js/script.js"></script>
+  <script>
+    // Fetch CSAs data from the API
+    fetch('/csas')
+      .then(response => response.json())
+      .then(data => {
+        // Process the CSAs data and display it on the page
+        const csasListElement = document.getElementById('csasList');
+        data.forEach(csa => {
+          const csaElement = document.createElement('div');
+          csaElement.innerHTML = `
+            <h3>${csa.name}</h3>
+            <p>Email: ${csa.email}</p>
+            <!-- Add more CSA details as needed -->
+          `;
+          csasListElement.appendChild(csaElement);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching CSAs:', error);
+      });
+  </script>
+</body>
+
+</html>
